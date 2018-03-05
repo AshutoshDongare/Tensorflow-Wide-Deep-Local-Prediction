@@ -7,9 +7,6 @@ This sample exports Tensorflow estimator trained model to a local directory, loa
 
 Find the details of [Tensorflow Wide and Deep model here.](https://www.tensorflow.org/tutorials/wide_and_deep)
 
- 
-The [Census Income Data Set](https://archive.ics.uci.edu/ml/datasets/Census+Income) contains over 48,000 samples with attributes including age, occupation, education, and income (a binary label, either `>50K` or `<=50K`). The dataset is split into roughly 32,000 training and 16,000 testing samples.
-
 ## Running the code
 ### Setup
 
