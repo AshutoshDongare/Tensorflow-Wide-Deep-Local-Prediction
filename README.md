@@ -61,7 +61,7 @@ We will add code to export trained model. Add below code snippet right after the
 
 Please note down the export path with the new export folder which looks something like ```1520271391```. This folder name would be different for each export.
  
-## Running Predictions and getting results
+## Running Predictions and Saving the results
 
 ```wide_deep_predict.py``` contains code for loading saved model to run on input data ```census_input.csv``` and save the results to output CSV file ```census_output.csv```
 
