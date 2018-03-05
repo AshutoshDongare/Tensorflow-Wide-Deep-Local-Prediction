@@ -59,10 +59,14 @@ We will add code to export trained model. Add below code snippet right after the
   print("Done Exporting at Path - %s", servable_model_path )
 ```
 
-Please note down the export path with the new export folder which looks something like ```1520271391```
+Please note down the export path with the new export folder which looks something like ```1520271391```. This folder name would be different for each export.
  
-##Running Predictions and getting results
+## Running Predictions and getting results
 
 ```wide_deep_predict.py``` contains code for loading saved model to run on input data ```census_input.csv``` and save the results to output CSV file ```census_output.csv```
 
-Output file contains all input parameters in addition of results of prediction named as ```Predicted_income_bracket``` and ```probability```. Note that the first result column has values 0 or 1. Label value given in the training will be treated as 1 ```>50K``` in this case. If required you can write actual label values to CSV by checking the results.
+Configure exported model path in ```wide_deep_predict.py``` as ```exported_path = '/tmp/census_exported/1520271391'``` 
+
+This code loads the exported model, reads input CSV line by line, prepares model input for prediction, runs prediction and writes results in Output CSV file.
+
+Output file contains all input parameters in addition of results of prediction named as ```Predicted_income_bracket``` and ```probability```. Note that the first result column has values 0 or 1. Label value given in the training (Positive Label) will be treated as 1, ```>50K``` in this case. If required you can write actual label values to CSV by checking the results.

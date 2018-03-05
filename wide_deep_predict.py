@@ -16,9 +16,11 @@ def main():
 		predictor = tf.contrib.predictor.from_saved_model(exported_path)
 		
 		prediction_OutFile = open(predictionoutputfile, 'w')
+		
 		#Write Header for CSV file
 		prediction_OutFile.write("age, workclass, fnlwgt, education, education_num,marital_status, occupation, relationship, race, gender,capital_gain, capital_loss, hours_per_week, native_country,predicted_income_bracket,probability")
 		prediction_OutFile.write('\n')
+		
 		# Read file and create feature_dict for each record
 		with open(predictioninputfile) as inf:
 			# Skip header
@@ -46,16 +48,17 @@ def main():
 					'native_country': _bytes_feature(value=native_country.encode()),
 				}
 				
-				# Prepare model input, the model expects a float array to be passed to x
-				# check line 28 serving_input_receiver_fn
+				# Prepare model input
+				
 				model_input = tf.train.Example(features=tf.train.Features(feature=feature_dict))
 				
 				model_input = model_input.SerializeToString()
 				output_dict = predictor({"inputs": [model_input]})
-				# print(" prediction is " , output_dict['scores'])
+				
 				print(" prediction Label is ", output_dict['classes'])
 				print('Probability : ' + str(output_dict['scores']))
-				# Inactive label = 1
+				
+				# Positive label = 1
 				prediction_OutFile.write(str(age)+ "," + workclass+ "," + str(fnlwgt)+ "," + education+ "," + str(education_num) + "," + marital_status + "," + occupation + "," + relationship + "," + race+ "," +gender+ "," + str(capital_gain)+ "," + str(capital_loss)+ "," + str(hours_per_week)+ "," + native_country+ ",")
 				label_index = np.argmax(output_dict['scores'])
 				prediction_OutFile.write(str(label_index))
