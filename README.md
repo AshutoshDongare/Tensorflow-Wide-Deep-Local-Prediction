@@ -1,11 +1,11 @@
-# Tensorflow Local Prediction 
+# Tensorflow Wide & Deep Local Prediction to CSV
 ## Overview 
 
 **If you do not want to deploy full Tensorflow serving for production but still want to be able to perform local predictions and save the results, this sample will help you achieve that.**
 
-This sample exports Tensorflow estimator trained model to a local directory, loads & runs the saved model and saves the results to a CSV file. 
+ This sample builds on top of Tensorflow sample for implementing Wide & Deep estimator Model. Training part of the code has been adopted from [Tensorflow samples on Github](https://github.com/tensorflow/tensorflow). This sample exports Tensorflow estimator trained model to a local directory, loads & runs the saved model and saves the results to a CSV file. 
 
-Find the details of [Tensorflow Wide and Deep model here.](https://www.tensorflow.org/tutorials/wide_and_deep)
+Check out more details on [Tensorflow Wide and Deep estimator model](https://www.tensorflow.org/tutorials/wide_and_deep)
 
 ## Running the code
 ### Setup
@@ -55,8 +55,9 @@ We will add code to export trained model. Add below code snippet right after the
   servable_model_path = model.export_savedmodel(servable_model_dir, export_input_fn)
   print("Done Exporting at Path - %s", servable_model_path )
 ```
+We are simply reusing ```build_model_columns()``` function present in training code to create features and export the model
 
-Please note down the export path with the new export folder which looks something like ```1520271391```. This folder name would be different for each export.
+Once we run the training and export, we should get a confirmation that the model has been exported at a path which looks like ```/tmp/census_exported/1520271391```. The last level would be different for each export so please note it down. we will be using it in the prediction code as mentioned in below section.
  
 ## Running Predictions and Saving the results
 
@@ -67,3 +68,6 @@ Configure exported model path in ```wide_deep_predict.py``` as ```exported_path 
 This code loads the exported model, reads input CSV line by line, prepares model input for prediction, runs prediction and writes results in Output CSV file.
 
 Output file contains all input parameters in addition of results of prediction named as ```Predicted_income_bracket``` and ```probability```. Note that the first result column has values 0 or 1. Label value given in the training (Positive Label) will be treated as 1, ```>50K``` in this case. If required you can write actual label values to CSV by checking the results.
+ 
+
+  
